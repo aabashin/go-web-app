@@ -1,0 +1,6 @@
+.git
+./app/logs
+./app/midleware
+./app/migrations
+./app/public
+./app/views

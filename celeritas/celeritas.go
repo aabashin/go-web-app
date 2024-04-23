@@ -9,9 +9,11 @@ import (
 	"time"
 
 	"github.com/CloudyKit/jet/v6"
+	"github.com/alexedwards/scs/v2"
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 	"github.com/tsawler/celeritas/render"
+	"github.com/tsawler/celeritas/session"
 )
 
 const version = "1.0.0"
@@ -25,13 +27,16 @@ type Celeritas struct {
 	RootPath string
 	Routes   *chi.Mux
 	Render   *render.Render
+	Session  *scs.SessionManager
 	JetViews *jet.Set
 	config   config
 }
 
 type config struct {
-	port     string
-	renderer string
+	port        string
+	renderer    string
+	coockie     coockieConfig
+	sessionType string
 }
 
 func (c *Celeritas) New(rootPath string) error {
@@ -70,7 +75,27 @@ func (c *Celeritas) New(rootPath string) error {
 	c.config = config{
 		port:     os.Getenv("PORT"),
 		renderer: os.Getenv("RENDERER"),
+		coockie: coockieConfig{
+			name:     os.Getenv("COOCKIE_NAME"),
+			lifetime: os.Getenv("COOCKIE_LIFETIME"),
+			persist:  os.Getenv("COOCKIE_PERSISTS"),
+			secure:   os.Getenv("COOCKIE_SECURE"),
+			domain:   os.Getenv("COOCKIE_DOMAIN"),
+		},
+		sessionType: os.Getenv("SESSION_TYPE"),
 	}
+
+	// create session
+
+	sess := session.Session{
+		CoockieLifetime: c.config.coockie.lifetime,
+		CoockiePersist:  c.config.coockie.persist,
+		CoockieName:     c.config.coockie.name,
+		SessionType:     c.config.sessionType,
+		CoockieDomain:   c.config.coockie.domain,
+	}
+
+	c.Session = sess.InitSession()
 
 	var views = jet.NewSet(
 		jet.NewOSFileSystemLoader(fmt.Sprintf("%s/views", rootPath)),

@@ -4,3 +4,4 @@
 ./app/migrations
 ./app/public
 ./app/views
+./app/db-data

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"app/data"
 	"fmt"
 	"net/http"
 
@@ -9,7 +10,8 @@ import (
 )
 
 type Handlers struct {
-	App *celeritas.Celeritas
+	App    *celeritas.Celeritas
+	Models data.Models
 }
 
 func (h *Handlers) Home(w http.ResponseWriter, r *http.Request) {

@@ -1,9 +1,9 @@
 .git
-./app/logs
-./app/midleware
-./app/migrations
-./app/public
-./app/views
+app/logs
+app/midleware
+app/migrations
+app/public
+app/views
 app/db-data
 app/db-data/mariadb
 app/db-data/postgres

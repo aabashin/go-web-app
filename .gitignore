@@ -8,3 +8,5 @@ app/db-data
 app/db-data/mariadb
 app/db-data/postgres
 app/db-data/redis
+app/vendor
+celeritas/vendor

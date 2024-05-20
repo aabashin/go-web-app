@@ -5,10 +5,17 @@ go 1.22.2
 replace github.com/tsawler/celeritas => ../celeritas
 
 require (
+	github.com/CloudyKit/jet/v6 v6.2.0
+	github.com/DATA-DOG/go-sqlmock v1.5.2
+	github.com/go-chi/chi/v5 v5.0.12
+	github.com/tsawler/celeritas v1.0.2
+	github.com/upper/db/v4 v4.7.0
+	golang.org/x/crypto v0.20.0
+)
+
+require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
-	github.com/CloudyKit/jet/v6 v6.2.0 // indirect
 	github.com/alexedwards/scs/v2 v2.8.0 // indirect
-	github.com/go-chi/chi/v5 v5.0.12 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
@@ -20,9 +27,7 @@ require (
 	github.com/jackc/pgx/v4 v4.18.3 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/lib/pq v1.10.9 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/segmentio/fasthash v1.0.3 // indirect
-	github.com/tsawler/celeritas v1.0.2 // indirect
-	github.com/upper/db/v4 v4.7.0 // indirect
-	golang.org/x/crypto v0.20.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )

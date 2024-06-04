@@ -15,8 +15,12 @@ require (
 
 require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
+	github.com/alexedwards/scs/postgresstore v0.0.0-20240316134038-7e11d57e8885 // indirect
 	github.com/alexedwards/scs/v2 v2.8.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
+	github.com/golang-migrate/migrate/v4 v4.17.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
@@ -29,5 +33,6 @@ require (
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/segmentio/fasthash v1.0.3 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )

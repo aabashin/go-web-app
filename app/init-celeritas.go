@@ -3,6 +3,7 @@ package main
 import (
 	"app/data"
 	"app/handlers"
+	"app/middleware"
 	"log"
 	"os"
 
@@ -24,6 +25,10 @@ func initApplication() *application {
 
 	cel.AppName = "app"
 
+	myMiddleware := &middleware.Middleware{
+		App: cel,
+	}
+
 	myHandlers := &handlers.Handlers{
 		App: cel,
 	}
@@ -31,14 +36,16 @@ func initApplication() *application {
 	cel.InfoLog.Println("Debug is set to", cel.Debug)
 
 	app := &application{
-		App:      cel,
-		Handlers: myHandlers,
+		App:        cel,
+		Handlers:   myHandlers,
+		Middleware: myMiddleware,
 	}
 
 	app.App.Routes = app.routes()
 
 	app.Models = data.New(app.App.DB.Pool)
 	myHandlers.Models = app.Models
+	app.Middleware.Models = app.Models
 
 	return app
 }

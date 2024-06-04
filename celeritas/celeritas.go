@@ -112,6 +112,7 @@ func (c *Celeritas) New(rootPath string) error {
 		CoockieName:     c.config.coockie.name,
 		SessionType:     c.config.sessionType,
 		CoockieDomain:   c.config.coockie.domain,
+		DBPool:          c.DB.Pool,
 	}
 
 	c.Session = sess.InitSession()

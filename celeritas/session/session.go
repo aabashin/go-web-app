@@ -1,11 +1,13 @@
 package session
 
 import (
+	"database/sql"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 )
 
@@ -16,6 +18,7 @@ type Session struct {
 	CoockieDomain   string
 	CoockieSecure   string
 	SessionType     string
+	DBPool          *sql.DB
 }
 
 func (c *Session) InitSession() *scs.SessionManager {
@@ -58,6 +61,7 @@ func (c *Session) InitSession() *scs.SessionManager {
 	case "mysql", "mariadb":
 
 	case "postgres", "postgresql":
+		session.Store = postgresstore.New(c.DBPool)
 
 	default:
 		//coockie

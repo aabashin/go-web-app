@@ -12,7 +12,7 @@ var views = jet.NewSet(
 	jet.InDevelopmentMode(),
 )
 
-var testRender = Render{
+var testRenderer = Render{
 	Renderer: "",
 	RootPath: "",
 	JetViews: views,

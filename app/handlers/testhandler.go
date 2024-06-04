@@ -4,7 +4,7 @@ import (
     "net/http"
 )
 
-// Testhandler comment goes here
-func (h *Handlers) Testhandler(w http.ResponseWriter, r *http.Request) {
+// TestHandler comment goes here
+func (h *Handlers) TestHandler(w http.ResponseWriter, r *http.Request) {
 
 }

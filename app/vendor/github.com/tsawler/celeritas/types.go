@@ -7,7 +7,7 @@ type initPaths struct {
 	folderNames []string
 }
 
-type coockieConfig struct {
+type cookieConfig struct {
 	name     string
 	lifetime string
 	persist  string

@@ -11,11 +11,11 @@ import (
 func TestSession_InitSession(t *testing.T) {
 
 	c := &Session{
-		CoockieLifetime: "100",
-		CoockiePersist:  "true",
-		CoockieName:     "celeritas",
-		CoockieDomain:   "locahost",
-		SessionType:     "coockie",
+		CookieLifetime: "100",
+		CookiePersist:  "true",
+		CookieName:     "celeritas",
+		CookieDomain:   "localhost",
+		SessionType:    "cookie",
 	}
 
 	var sm *scs.SessionManager
@@ -36,14 +36,14 @@ func TestSession_InitSession(t *testing.T) {
 	}
 
 	if !rv.IsValid() {
-		t.Error("invalid type or kind; kind: ", rv.Kind(), ", type: ", rv.Type())
+		t.Error("invalid type or kind; kind:", rv.Kind(), "type:", rv.Type())
 	}
 
 	if sessKind != reflect.ValueOf(sm).Kind() {
-		t.Error("wrong kind returned testing coockie session. Expected", reflect.ValueOf(sm).Kind(), "and got", sessKind)
+		t.Error("wrong kind returned testing cookie session. Expected", reflect.ValueOf(sm).Kind(), "and got", sessKind)
 	}
 
 	if sessType != reflect.ValueOf(sm).Type() {
-		t.Error("wrong type returned testing coockie session. Expected", reflect.ValueOf(sm).Type(), "and got", sessType)
+		t.Error("wrong type returned testing cookie session. Expected", reflect.ValueOf(sm).Type(), "and got", sessType)
 	}
 }

@@ -36,7 +36,7 @@ type Celeritas struct {
 type config struct {
 	port        string
 	renderer    string
-	coockie     coockieConfig
+	cookie      cookieConfig
 	sessionType string
 	database    databaseConfig
 }
@@ -90,12 +90,12 @@ func (c *Celeritas) New(rootPath string) error {
 	c.config = config{
 		port:     os.Getenv("PORT"),
 		renderer: os.Getenv("RENDERER"),
-		coockie: coockieConfig{
-			name:     os.Getenv("COOCKIE_NAME"),
-			lifetime: os.Getenv("COOCKIE_LIFETIME"),
-			persist:  os.Getenv("COOCKIE_PERSISTS"),
-			secure:   os.Getenv("COOCKIE_SECURE"),
-			domain:   os.Getenv("COOCKIE_DOMAIN"),
+		cookie: cookieConfig{
+			name:     os.Getenv("COOKIE_NAME"),
+			lifetime: os.Getenv("COOKIE_LIFETIME"),
+			persist:  os.Getenv("COOKIE_PERSISTS"),
+			secure:   os.Getenv("COOKIE_SECURE"),
+			domain:   os.Getenv("COOKIE_DOMAIN"),
 		},
 		sessionType: os.Getenv("SESSION_TYPE"),
 		database: databaseConfig{
@@ -107,12 +107,12 @@ func (c *Celeritas) New(rootPath string) error {
 	// create session
 
 	sess := session.Session{
-		CoockieLifetime: c.config.coockie.lifetime,
-		CoockiePersist:  c.config.coockie.persist,
-		CoockieName:     c.config.coockie.name,
-		SessionType:     c.config.sessionType,
-		CoockieDomain:   c.config.coockie.domain,
-		DBPool:          c.DB.Pool,
+		CookieLifetime: c.config.cookie.lifetime,
+		CookiePersist:  c.config.cookie.persist,
+		CookieName:     c.config.cookie.name,
+		SessionType:    c.config.sessionType,
+		CookieDomain:   c.config.cookie.domain,
+		DBPool:         c.DB.Pool,
 	}
 
 	c.Session = sess.InitSession()

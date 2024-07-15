@@ -10,3 +10,4 @@ app/db-data/postgres
 app/db-data/redis
 app/vendor
 celeritas/vendor
+vendor

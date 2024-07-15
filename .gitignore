@@ -11,3 +11,5 @@ app/db-data/redis
 app/vendor
 celeritas/vendor
 vendor
+app/tmp
+tmp

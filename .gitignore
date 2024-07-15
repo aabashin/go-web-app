@@ -1,0 +1,16 @@
+.git
+app/logs
+app/midleware
+app/migrations
+app/public
+app/views
+app/db-data
+app/db-data/mariadb
+app/db-data/postgres
+app/db-data/redis
+app/vendor
+celeritas/vendor
+vendor
+app/tmp
+tmp
+app/celeritas

@@ -13,3 +13,4 @@ celeritas/vendor
 vendor
 app/tmp
 tmp
+app/celeritas

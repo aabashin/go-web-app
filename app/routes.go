@@ -1,12 +1,13 @@
 package main
 
 import (
-	"app/data"
 	"fmt"
+	"myapp/data"
 	"net/http"
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/tsawler/celeritas/mailer"
 )
 
 func (a *application) routes() *chi.Mux {
@@ -31,11 +32,41 @@ func (a *application) routes() *chi.Mux {
 
 	a.get("/crypto", a.Handlers.TestCrypto)
 
+	a.get("/cache-test", a.Handlers.ShowCachePage)
+	a.post("/api/save-in-cache", a.Handlers.SaveInCache)
+	a.post("/api/get-from-cache", a.Handlers.GetFromCache)
+	a.post("/api/delete-from-cache", a.Handlers.DeleteFromCache)
+	a.post("/api/empty-cache", a.Handlers.EmptyCache)
+
+	a.get("/test-mail", func(w http.ResponseWriter, r *http.Request) {
+		msg := mailer.Message{
+			From: "info@verilion.com",
+			To: "trevor.sawler@gmail.com",
+			Subject: "Test Subject - sent using an API",
+			Template: "test",
+			Attachments: nil,
+			Data: nil,
+		}
+
+		a.App.Mail.Jobs <- msg
+		res := <-a.App.Mail.Results
+		if res.Error != nil {
+			a.App.ErrorLog.Println(res.Error)
+		}
+		// err := a.App.Mail.SendSMTPMessage(msg)
+		// if err != nil {
+		// 	a.App.ErrorLog.Println(err)
+		// 	return
+		// }
+
+		fmt.Fprint(w, "Send mail!")
+	})
+
 	a.App.Routes.Get("/create-user", func(w http.ResponseWriter, r *http.Request) {
 		u := data.User{
-			FirstName: "Alex",
-			LastName:  "Ivanov",
-			Email:     "me@here.ru",
+			FirstName: "Trevor",
+			LastName:  "Sawler",
+			Email:     "me@here.com",
 			Active:    1,
 			Password:  "password",
 		}
@@ -47,23 +78,6 @@ func (a *application) routes() *chi.Mux {
 		}
 
 		fmt.Fprintf(w, "%d: %s", id, u.FirstName)
-	})
-
-	a.App.Routes.Get("/test-database", func(w http.ResponseWriter, r *http.Request) {
-		query := "SELECT id, first_name FROM users WHERE id > 0"
-
-		row := a.App.DB.Pool.QueryRowContext(r.Context(), query)
-
-		var id int
-		var name string
-
-		err := row.Scan(&id, &name)
-		if err != nil {
-			a.App.ErrorLog.Println(err)
-			return
-		}
-
-		fmt.Fprintf(w, "%d %s", id, name)
 	})
 
 	a.App.Routes.Get("/get-all-users", func(w http.ResponseWriter, r *http.Request) {
@@ -85,12 +99,12 @@ func (a *application) routes() *chi.Mux {
 			a.App.ErrorLog.Println(err)
 			return
 		}
+
 		fmt.Fprintf(w, "%s %s %s", u.FirstName, u.LastName, u.Email)
 	})
 
 	a.App.Routes.Get("/update-user/{id}", func(w http.ResponseWriter, r *http.Request) {
 		id, _ := strconv.Atoi(chi.URLParam(r, "id"))
-
 		u, err := a.Models.Users.Get(id)
 		if err != nil {
 			a.App.ErrorLog.Println(err)
@@ -103,7 +117,6 @@ func (a *application) routes() *chi.Mux {
 		u.LastName = ""
 
 		u.Validate(validator)
-		//validator.Check(len(u.LastName) > 20, "last_name", "Last name must be 20 characters")
 
 		if !validator.Valid() {
 			fmt.Fprint(w, "failed validation")
@@ -116,6 +129,7 @@ func (a *application) routes() *chi.Mux {
 		}
 
 		fmt.Fprintf(w, "updated last name to %s", u.LastName)
+
 	})
 
 	// static routes

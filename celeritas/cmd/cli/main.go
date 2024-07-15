@@ -14,7 +14,6 @@ var cel celeritas.Celeritas
 
 func main() {
 	var message string
-
 	arg1, arg2, arg3, err := validateInput()
 	if err != nil {
 		exitGracefully(err)
@@ -33,12 +32,11 @@ func main() {
 		if arg2 == "" {
 			arg2 = "up"
 		}
-
 		err = doMigrate(arg2, arg3)
 		if err != nil {
 			exitGracefully(err)
 		}
-		message = "Migration complete!"
+		message = "Migrations complete!"
 
 	case "make":
 		if arg2 == "" {
@@ -70,7 +68,7 @@ func validateInput() (string, string, string, error) {
 			arg3 = os.Args[3]
 		}
 	} else {
-		color.Red("Error: command line required")
+		color.Red("Error: command required")
 		showHelp()
 		return "", "", "", errors.New("command required")
 	}
